@@ -51,7 +51,10 @@ export const maxSpeed: (p:Pokemon[])=>Pokemon[] =
 export const grassTypes:(p:Pokemon[])=>string[] = 
     (p)=> p.filter(x=> x.type.includes("Grass")).map(x=>x.name.english).sort();
 
-export const uniqueTypes = undefined;
+export const uniqueTypes: (p:Pokemon[])=>string[] =
+    (p)=> 
+      p.map(x=>x.type).
+      reduce((acc,curr)=> acc.concat(curr.filter(x=>!acc.includes(x))),[]);
 
 export const pokedex = [{
     "id": 1,
@@ -403,5 +406,5 @@ export const pokedex = [{
       "Speed": 71
     }
   }]
-console.log(grassTypes(pokedex));
-  
+// console.log(grassTypes(pokedex));
+console.log(uniqueTypes(pokedex));
