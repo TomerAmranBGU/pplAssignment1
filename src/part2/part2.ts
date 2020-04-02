@@ -1,4 +1,4 @@
-import { reduce } from "ramda";
+import { reduce, compose } from "ramda";
 
 /* Question 1 */
 export const partition:<T> 
@@ -14,8 +14,13 @@ export const mapMat:<T,U>
     (f,mat) => mat.map(x=>x.map(f));
 
 /* Question 3 */
-export const composeMany:<T> (f_arr:((x:T)=>T)[]) => ((y:T)=>T) = 
-    (f_arr) => ((x) => f_arr.reduce((acc,curr)=> curr(acc) ,x));
+export const composeMany = <T>(f_arr:((x:T)=>T)[]) : (x:T)=>T => 
+      f_arr.reduce(
+        (acc,curr) => compose(acc,curr), (x:T)=>x);
+    // (f_arr) => ((x) => f_arr.reverse().reduce((acc,curr)=> curr(acc) ,x)); my not very smart solution
+
+console.log(composeMany([(x:number)=>x+1,(x:number)=> x*x])(2));
+console.log(composeMany([(x: number) => x * x, (x: number) => x * 2, (x: number) => x + 1])(4));
 
 /* Question 4 */
 interface Languages {

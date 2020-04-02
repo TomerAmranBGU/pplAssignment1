@@ -25,6 +25,14 @@ describe("Assignment 1 Part 2", () => {
             const times8 = composeMany([(x:number)=> x*2 ,(x:number)=> x*2,(x:number)=> x*2]);
             expect(times8(3)).to.equal(24);            
         })
+        it("compose (2x+1)^2", () => {
+            let wf = composeMany([(x: number) => x * x, (x: number) => x + 1, (x: number) => 2 * x]);
+            expect(wf(4)).to.equal(81);
+          })
+          it("compose (2(x+1))^2", () => {
+            let wf = composeMany([(x: number) => x * x, (x: number) => x * 2, (x: number) => x + 1]);
+            expect(wf(4)).to.equal(100);
+          })
     })  
     describe("maxSpeed",() => {
         it("small data set", () => {
